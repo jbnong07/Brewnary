@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		7A2D57492DAD4A010020C38F /* Brewnary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brewnary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AA1A8952DB73BDB00F47E08 /* Brewnary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brewnary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		7A2D575B2DAD4A020020C38F /* Exceptions for "Brewnary" folder in "Brewnary" target */ = {
+		7A2D578C2DAF365F0020C38F /* Exceptions for "Brewnary" folder in "Brewnary" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Application/Info.plist,
 			);
 			target = 7A2D57482DAD4A010020C38F /* Brewnary */;
 		};
@@ -24,7 +24,7 @@
 		7A2D574B2DAD4A010020C38F /* Brewnary */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				7A2D575B2DAD4A020020C38F /* Exceptions for "Brewnary" folder in "Brewnary" target */,
+				7A2D578C2DAF365F0020C38F /* Exceptions for "Brewnary" folder in "Brewnary" target */,
 			);
 			path = Brewnary;
 			sourceTree = "<group>";
@@ -46,16 +46,8 @@
 			isa = PBXGroup;
 			children = (
 				7A2D574B2DAD4A010020C38F /* Brewnary */,
-				7A2D574A2DAD4A010020C38F /* Products */,
+				7AA1A8952DB73BDB00F47E08 /* Brewnary.app */,
 			);
-			sourceTree = "<group>";
-		};
-		7A2D574A2DAD4A010020C38F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7A2D57492DAD4A010020C38F /* Brewnary.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,7 +72,7 @@
 			packageProductDependencies = (
 			);
 			productName = Brewnary;
-			productReference = 7A2D57492DAD4A010020C38F /* Brewnary.app */;
+			productReference = 7AA1A8952DB73BDB00F47E08 /* Brewnary.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +100,7 @@
 			mainGroup = 7A2D57402DAD4A010020C38F;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 7A2D574A2DAD4A010020C38F /* Products */;
+			productRefGroup = 7A2D57402DAD4A010020C38F;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -147,10 +139,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZS9874H9ND;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Brewnary/Info.plist;
+				INFOPLIST_FILE = Brewnary/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -175,10 +166,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZS9874H9ND;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Brewnary/Info.plist;
+				INFOPLIST_FILE = Brewnary/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

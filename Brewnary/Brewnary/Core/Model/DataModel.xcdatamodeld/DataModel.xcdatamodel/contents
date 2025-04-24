@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24E248" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Bean" representedClassName="Bean" syncable="YES">
+        <attribute name="degassingDate" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isConsumed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="openedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="roasterId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="roastLevelId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="storageTypeId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="flavor" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flavor" inverseName="bean" inverseEntity="Flavor"/>
+        <relationship name="roaster" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Roaster" inverseName="bean" inverseEntity="Roaster"/>
+        <relationship name="roastLevel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RoastLevel" inverseName="bean" inverseEntity="RoastLevel"/>
+        <relationship name="storageType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StorageType" inverseName="bean" inverseEntity="StorageType"/>
+    </entity>
+    <entity name="Flavor" representedClassName="Flavor" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="bean" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bean" inverseName="flavor" inverseEntity="Bean"/>
+    </entity>
+    <entity name="Roaster" representedClassName="Roaster" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="bean" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bean" inverseName="roaster" inverseEntity="Bean"/>
+    </entity>
+    <entity name="RoastLevel" representedClassName="RoastLevel" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="level" optional="YES" attributeType="String"/>
+        <relationship name="bean" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bean" inverseName="roastLevel" inverseEntity="Bean"/>
+    </entity>
+    <entity name="StorageType" representedClassName="StorageType" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="method" optional="YES" attributeType="String"/>
+        <relationship name="bean" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bean" inverseName="storageType" inverseEntity="Bean"/>
+    </entity>
+</model>
