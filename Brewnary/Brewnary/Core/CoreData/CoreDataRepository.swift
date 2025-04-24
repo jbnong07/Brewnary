@@ -15,88 +15,77 @@ final class CoreDataRepository<T: NSManagedObject> {
     }
     
     func createEntity() async throws -> T {
-        try await withCheckedThrowingContinuation { continuation in
-            let context: NSManagedObjectContext = contextProvider()
-            context.perform {
-                let newEntity = T(context: context)
-                do {
-                    try context.save()
-                    continuation.resume(returning: newEntity)
-                } catch {
-                    let name: String = T.entity().name ?? "\(T.self)"
-                    continuation.resume(throwing: CoreDataError.failedToCreate(entityName: name))
-                }
+        let context: NSManagedObjectContext = contextProvider()
+        
+        return try await context.perform {
+            let entity: T = T(context: context)
+            do {
+                try context.save()
+                return entity
+            } catch {
+                let name: String = T.entity().name ?? "\(T.self)"
+                throw CoreDataError.failedToCreate(entityName: name)
             }
         }
     }
     
     func fetchEntityById(_ id: String?) async throws -> T {
-        try await withCheckedThrowingContinuation { continuation in
             let context: NSManagedObjectContext = contextProvider()
-            context.perform {
+            return try await context.perform {
                 do {
                     let entity: T = try Self.resolveEntity(id: id, in: context)
-                    continuation.resume(returning: entity)
+                    return entity
                 } catch {
-                    continuation.resume(throwing: error)
+                    throw error
                 }
             }
-        }
     }
     
     func fetchAllEntities(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) async throws -> [T] {
-        try await withCheckedThrowingContinuation { continuation in
-            let context: NSManagedObjectContext = contextProvider()
-            context.perform {
-                let entityName: String = String(describing: T.self)
-                let fetchRequest: NSFetchRequest<T> = NSFetchRequest<T>(entityName: entityName)
-                fetchRequest.predicate = predicate
-                fetchRequest.sortDescriptors = sortDescriptors
-                
-                do {
-                    let entities: [T] = try context.fetch(fetchRequest)
-                    continuation.resume(returning: entities)
-                } catch {
-                    continuation.resume(throwing: CoreDataError.failedToFetch(underlying: error))
-                }
+        let context: NSManagedObjectContext = contextProvider()
+        return try await context.perform {
+            let entityName: String = String(describing: T.self)
+            let fetchRequest: NSFetchRequest<T> = NSFetchRequest<T>(entityName: entityName)
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = sortDescriptors
+            
+            do {
+                let entities: [T] = try context.fetch(fetchRequest)
+                return entities
+            } catch {
+                throw CoreDataError.failedToFetch(underlying: error)
             }
         }
     }
     
     func deleteEntityById(id: String?) async throws {
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            let context: NSManagedObjectContext = contextProvider()
-            context.perform {
-                do {
-                    let entity: NSManagedObject = try Self.resolveEntity(id: id, in: context)
-                    context.delete(entity)
-                    try Self.saveIfNeeded(context: context)
-                    
-                    continuation.resume(returning: ())
-                } catch {
-                    continuation.resume(throwing: error)
-                }
+        let context: NSManagedObjectContext = contextProvider()
+        try await context.perform {
+            do {
+                let entity: NSManagedObject = try Self.resolveEntity(id: id, in: context)
+                context.delete(entity)
+                try Self.saveIfNeeded(context: context)
+            } catch {
+                throw error
             }
         }
     }
     
     func updateEntity(id: String?, updateBlock: @escaping (T) -> Void) async throws {
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            let context: NSManagedObjectContext = contextProvider()
-            context.perform {
-                do {
-                    let entity: T = try Self.resolveEntity(id: id, in: context)
-                    updateBlock(entity)
-                    try Self.saveIfNeeded(context: context)
-                    
-                    continuation.resume(returning: ())
-                } catch {
-                    continuation.resume(throwing: error)
-                }
+        let context: NSManagedObjectContext = contextProvider()
+        try await context.perform {
+            do {
+                let entity: T = try Self.resolveEntity(id: id, in: context)
+                updateBlock(entity)
+                try Self.saveIfNeeded(context: context)
+            } catch {
+                throw error
             }
         }
     }
 }
+
+// MARK: -- helper method
 
 private extension CoreDataRepository {
     static func saveIfNeeded(context: NSManagedObjectContext) throws {
