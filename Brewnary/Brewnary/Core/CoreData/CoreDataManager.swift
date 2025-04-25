@@ -11,7 +11,7 @@ final class CoreDataManager {
     private let containerName: String = "DataModel"
     private let persistentContainer: NSPersistentContainer
     
-    static let shared: CoredataManager = CoredataManager()
+    static let shared: CoreDataManager = CoreDataManager()
     
     private init() {
         self.persistentContainer = NSPersistentContainer(name: containerName)
