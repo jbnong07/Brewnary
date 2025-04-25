@@ -13,7 +13,10 @@ struct BeanView: View {
     }
 }
 
-#Preview {
-    BeanView()
+#if DEBUG
+struct BeanViewPreview: PreviewProvider {
+    static var previews: some View {
+        BeanView()
+    }
 }
-
+#endif
