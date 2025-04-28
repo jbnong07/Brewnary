@@ -8,19 +8,17 @@
 import CoreData
 
 final class CoreDataRepository<T: NSManagedObject> {
-    private let contextProvider: () -> NSManagedObjectContext
+    private let context: NSManagedObjectContext
     
-    init(contextProvider: @escaping () -> NSManagedObjectContext) {
-        self.contextProvider = contextProvider
+    init(context: NSManagedObjectContext) {
+        self.context = context
     }
     
     func createEntity() async throws -> T {
-        let context: NSManagedObjectContext = contextProvider()
-        
-        return try await context.perform {
-            let entity: T = T(context: context)
+        try await context.perform {
+            let entity: T = T(context: self.context)
             do {
-                try context.save()
+                try self.context.save()
                 return entity
             } catch {
                 let name: String = T.entity().name ?? "\(T.self)"
@@ -30,27 +28,25 @@ final class CoreDataRepository<T: NSManagedObject> {
     }
     
     func fetchEntityById(_ id: String?) async throws -> T {
-            let context: NSManagedObjectContext = contextProvider()
-            return try await context.perform {
-                do {
-                    let entity: T = try Self.resolveEntity(id: id, in: context)
-                    return entity
-                } catch {
-                    throw error
-                }
+        try await context.perform {
+            do {
+                let entity: T = try Self.resolveEntity(id: id, in: self.context)
+                return entity
+            } catch {
+                throw error
             }
+        }
     }
     
     func fetchAllEntities(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) async throws -> [T] {
-        let context: NSManagedObjectContext = contextProvider()
-        return try await context.perform {
+        try await context.perform {
             let entityName: String = String(describing: T.self)
             let fetchRequest: NSFetchRequest<T> = NSFetchRequest<T>(entityName: entityName)
             fetchRequest.predicate = predicate
             fetchRequest.sortDescriptors = sortDescriptors
             
             do {
-                let entities: [T] = try context.fetch(fetchRequest)
+                let entities: [T] = try self.context.fetch(fetchRequest)
                 return entities
             } catch {
                 throw CoreDataError.failedToFetch(underlying: error)
@@ -59,12 +55,11 @@ final class CoreDataRepository<T: NSManagedObject> {
     }
     
     func deleteEntityById(id: String?) async throws {
-        let context: NSManagedObjectContext = contextProvider()
         try await context.perform {
             do {
-                let entity: NSManagedObject = try Self.resolveEntity(id: id, in: context)
-                context.delete(entity)
-                try Self.saveIfNeeded(context: context)
+                let entity: NSManagedObject = try Self.resolveEntity(id: id, in: self.context)
+                self.context.delete(entity)
+                try Self.saveIfNeeded(context: self.context)
             } catch {
                 throw error
             }
@@ -72,12 +67,11 @@ final class CoreDataRepository<T: NSManagedObject> {
     }
     
     func updateEntity(id: String?, updateBlock: @escaping (T) -> Void) async throws {
-        let context: NSManagedObjectContext = contextProvider()
         try await context.perform {
             do {
-                let entity: T = try Self.resolveEntity(id: id, in: context)
+                let entity: T = try Self.resolveEntity(id: id, in: self.context)
                 updateBlock(entity)
-                try Self.saveIfNeeded(context: context)
+                try Self.saveIfNeeded(context: self.context)
             } catch {
                 throw error
             }
@@ -93,7 +87,7 @@ private extension CoreDataRepository {
             try context.save()
         }
     }
-
+    
     static func resolveEntity(id: String?, in context: NSManagedObjectContext) throws -> T {
         do {
             let objectId: NSManagedObjectID = try Self.toNSManagedObjectID(from: id, in: context)
@@ -105,7 +99,7 @@ private extension CoreDataRepository {
             throw error
         }
     }
-        
+    
     static func toNSManagedObjectID(from id: String?, in context: NSManagedObjectContext) throws -> NSManagedObjectID {
         guard let id = id,
               let url = URL(string: id),
