@@ -1,8 +1,8 @@
 //
-//  RoastLevel+CoreDataProperties.swift
+//  RoastLevelEntity+CoreDataProperties.swift
 //  Brewnary
 //
-//  Created by 박진홍 on 4/22/25.
+//  Created by 박진홍 on 4/28/25.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension RoastLevel {
+extension RoastLevelEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<RoastLevel> {
-        return NSFetchRequest<RoastLevel>(entityName: "RoastLevel")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<RoastLevelEntity> {
+        return NSFetchRequest<RoastLevelEntity>(entityName: "RoastLevel")
     }
 
     @NSManaged public var id: UUID?
@@ -23,13 +23,13 @@ extension RoastLevel {
 }
 
 // MARK: Generated accessors for bean
-extension RoastLevel {
+extension RoastLevelEntity {
 
     @objc(addBeanObject:)
-    @NSManaged public func addToBean(_ value: Bean)
+    @NSManaged public func addToBean(_ value: BeanEntity)
 
     @objc(removeBeanObject:)
-    @NSManaged public func removeFromBean(_ value: Bean)
+    @NSManaged public func removeFromBean(_ value: BeanEntity)
 
     @objc(addBean:)
     @NSManaged public func addToBean(_ values: NSSet)
