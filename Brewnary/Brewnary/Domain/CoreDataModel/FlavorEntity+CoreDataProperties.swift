@@ -1,8 +1,8 @@
 //
-//  Flavor+CoreDataProperties.swift
+//  FlavorEntity+CoreDataProperties.swift
 //  Brewnary
 //
-//  Created by 박진홍 on 4/22/25.
+//  Created by 박진홍 on 4/28/25.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Flavor {
+extension FlavorEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Flavor> {
-        return NSFetchRequest<Flavor>(entityName: "Flavor")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<FlavorEntity> {
+        return NSFetchRequest<FlavorEntity>(entityName: "Flavor")
     }
 
     @NSManaged public var id: UUID?
@@ -23,13 +23,13 @@ extension Flavor {
 }
 
 // MARK: Generated accessors for bean
-extension Flavor {
+extension FlavorEntity {
 
     @objc(addBeanObject:)
-    @NSManaged public func addToBean(_ value: Bean)
+    @NSManaged public func addToBean(_ value: BeanEntity)
 
     @objc(removeBeanObject:)
-    @NSManaged public func removeFromBean(_ value: Bean)
+    @NSManaged public func removeFromBean(_ value: BeanEntity)
 
     @objc(addBean:)
     @NSManaged public func addToBean(_ values: NSSet)
