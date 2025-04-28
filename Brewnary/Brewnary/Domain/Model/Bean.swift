@@ -10,8 +10,8 @@ import Foundation
 struct Bean: Identifiable, Equatable {
     let id: UUID
     let name: String
-    let price: Int32
-    let degassingDate: Int16
+    let price: Int
+    let degassingDate: Int
     let openedDate: Date?
     let isConsumed: Bool
     let roasterId: UUID?

@@ -3,7 +3,7 @@
     <entity name="Bean" representedClassName="BeanEntity" syncable="YES">
         <attribute name="degassingDate" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="isConsumed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isConsumed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="openedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="price" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES"/>
