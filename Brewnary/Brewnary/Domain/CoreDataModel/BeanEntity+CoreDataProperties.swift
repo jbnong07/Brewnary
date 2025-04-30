@@ -29,6 +29,10 @@ extension BeanEntity {
     @NSManaged public var roaster: RoasterEntity?
     @NSManaged public var roastLevel: RoastLevelEntity?
     @NSManaged public var storageType: StorageTypeEntity?
+    
+    var flavorIds: [UUID] {
+        (flavor as? Set<FlavorEntity>)?.compactMap { $0.id } ?? []
+    }
 
 }
 
