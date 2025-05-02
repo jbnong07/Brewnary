@@ -1,8 +1,8 @@
 //
-//  Roaster+CoreDataProperties.swift
+//  RoasterEntity+CoreDataProperties.swift
 //  Brewnary
 //
-//  Created by 박진홍 on 4/22/25.
+//  Created by 박진홍 on 4/28/25.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Roaster {
+extension RoasterEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Roaster> {
-        return NSFetchRequest<Roaster>(entityName: "Roaster")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<RoasterEntity> {
+        return NSFetchRequest<RoasterEntity>(entityName: "Roaster")
     }
 
     @NSManaged public var id: UUID?
@@ -23,13 +23,13 @@ extension Roaster {
 }
 
 // MARK: Generated accessors for bean
-extension Roaster {
+extension RoasterEntity {
 
     @objc(addBeanObject:)
-    @NSManaged public func addToBean(_ value: Bean)
+    @NSManaged public func addToBean(_ value: BeanEntity)
 
     @objc(removeBeanObject:)
-    @NSManaged public func removeFromBean(_ value: Bean)
+    @NSManaged public func removeFromBean(_ value: BeanEntity)
 
     @objc(addBean:)
     @NSManaged public func addToBean(_ values: NSSet)

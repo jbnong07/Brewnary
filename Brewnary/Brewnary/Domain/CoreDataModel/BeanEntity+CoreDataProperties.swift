@@ -1,8 +1,8 @@
 //
-//  Bean+CoreDataProperties.swift
+//  BeanEntity+CoreDataProperties.swift
 //  Brewnary
 //
-//  Created by 박진홍 on 4/22/25.
+//  Created by 박진홍 on 4/28/25.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension Bean {
+extension BeanEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Bean> {
-        return NSFetchRequest<Bean>(entityName: "Bean")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<BeanEntity> {
+        return NSFetchRequest<BeanEntity>(entityName: "Bean")
     }
 
     @NSManaged public var degassingDate: Int16
@@ -26,20 +26,24 @@ extension Bean {
     @NSManaged public var roastLevelId: UUID?
     @NSManaged public var storageTypeId: UUID?
     @NSManaged public var flavor: NSSet?
-    @NSManaged public var roaster: Roaster?
-    @NSManaged public var roastLevel: RoastLevel?
-    @NSManaged public var storageType: StorageType?
+    @NSManaged public var roaster: RoasterEntity?
+    @NSManaged public var roastLevel: RoastLevelEntity?
+    @NSManaged public var storageType: StorageTypeEntity?
+    
+    var flavorIds: [UUID] {
+        (flavor as? Set<FlavorEntity>)?.compactMap { $0.id } ?? []
+    }
 
 }
 
 // MARK: Generated accessors for flavor
-extension Bean {
+extension BeanEntity {
 
     @objc(addFlavorObject:)
-    @NSManaged public func addToFlavor(_ value: Flavor)
+    @NSManaged public func addToFlavor(_ value: FlavorEntity)
 
     @objc(removeFlavorObject:)
-    @NSManaged public func removeFromFlavor(_ value: Flavor)
+    @NSManaged public func removeFromFlavor(_ value: FlavorEntity)
 
     @objc(addFlavor:)
     @NSManaged public func addToFlavor(_ values: NSSet)
