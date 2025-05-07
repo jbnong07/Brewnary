@@ -5,8 +5,11 @@
 //  Created by 박진홍 on 4/30/25.
 //
 
-struct RoasterMapper {
-    static func map(from entity: RoasterEntity) throws -> Roaster {
+struct RoasterMapper: MapperType {
+    typealias Model = Roaster
+    typealias Entity = RoasterEntity
+    
+    static func map(from entity: Entity) throws -> Model {
         guard let name = entity.name
         else {
             throw MappingError.missingField("Roaster.name")
@@ -15,10 +18,10 @@ struct RoasterMapper {
         else {
             throw MappingError.missingField("Roaster.id")
         }
-        return Roaster(id: id, name: name)
+        return Model(id: id, name: name)
     }
     
-    static func update(from model: Roaster, to entity: RoasterEntity) {
+    static func update(from model: Model, to entity: Entity) {
         MapperHelper.assign(entity, \.id, model.id)
         MapperHelper.assign(entity, \.name, model.name)
     }
