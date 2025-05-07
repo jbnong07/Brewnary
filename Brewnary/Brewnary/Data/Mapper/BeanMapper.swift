@@ -31,7 +31,8 @@ struct BeanMapper {
         )
     }
     
-    static func map(from model: Bean, to entity: BeanEntity, with flavor: [FlavorEntity]) {
+    @discardableResult
+    static func map(from model: Bean, to entity: BeanEntity, with flavor: [FlavorEntity]) -> BeanEntity{
         MapperHelper.assign(entity, \.id, model.id)
         MapperHelper.assign(entity, \.name, model.name)
         MapperHelper.assign(entity, \.price, Int32(model.price))
@@ -43,5 +44,7 @@ struct BeanMapper {
         MapperHelper.assign(entity, \.storageTypeId, model.storageTypeId)
         
         entity.flavor = NSSet(array: flavor)
+        
+        return entity
     }
 }
