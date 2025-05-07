@@ -33,7 +33,7 @@ struct BeanMapper: MapperType {
             flavorIds:      flavorSet.compactMap { $0.id }
         )
     }
-    static func update(from model: Model, to entity: Entity) async throws {
+    static func update(from model: Model, to entity: Entity) {
         MapperHelper.assign(entity, \.id, model.id)
         MapperHelper.assign(entity, \.name, model.name)
         MapperHelper.assign(entity, \.price, Int32(model.price))

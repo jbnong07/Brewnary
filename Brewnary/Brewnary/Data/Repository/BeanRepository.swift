@@ -7,38 +7,19 @@
 
 import CoreData
 
-final class BeanRepository {
-    private let context: NSManagedObjectContext
-    private let coreDataRepository: CoreDataRepository<BeanEntity>
+final class BeanRepository: RepositoryType {
+    typealias Model = Bean
+    typealias EntityType = BeanEntity
+    typealias Mapper = BeanMapper
+    
+    let context: NSManagedObjectContext
+    let coreDataRepository: CoreDataRepository<BeanEntity>
     
     init(context: NSManagedObjectContext) {
         self.context = context
         self.coreDataRepository = CoreDataRepository(context: context)
     }
     
-    @discardableResult
-    func createBean() async throws -> Bean {
-        let entity: BeanEntity = try await coreDataRepository.createEntity()
-        return try BeanMapper.map(from: entity)
-    }
-    
-    func fetchAllBean() async throws -> [Bean] {
-        let entities: [BeanEntity] = try await coreDataRepository.fetchAllEntities()
-        return try entities.map { entity in
-            try BeanMapper.map(from: entity)
-        }
-    }
-    
-    func fetchBeanByID(_ id: UUID) async throws -> Bean {
-        let entity: BeanEntity = try await coreDataRepository.fetchEntityById(id)
-        return try BeanMapper.map(from: entity)
-    }
-    
-    func deleteBeanByID(_ id: UUID) async throws {
-        try await coreDataRepository.deleteEntityById(id)
-    }
-    
-    // TODO: with에 flavorEntity 넣어야 함
     func updateBean(to bean: Bean, with flavor: [FlavorEntity]) async throws {
         try await coreDataRepository.updateEntity(id: bean.id) { entity in
             BeanMapper.update(from: bean, to: entity, with: flavor)
