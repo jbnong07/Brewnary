@@ -10,17 +10,14 @@ import CoreData
 final class CoreDataManager {
     private let containerName: String = "DataModel"
     private let persistentContainer: NSPersistentContainer
+    let sharedBackgroundContext: NSManagedObjectContext
     
-    static let shared: CoredataManager = CoredataManager()
+    static let shared: CoreDataManager = CoreDataManager()
     
     private init() {
         self.persistentContainer = NSPersistentContainer(name: containerName)
-    }
-    
-    func getBackgroundContext() -> NSManagedObjectContext {
-        let context: NSManagedObjectContext =  persistentContainer.newBackgroundContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        return context
+        self.sharedBackgroundContext = persistentContainer.newBackgroundContext()
+        self.sharedBackgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
 }
 
