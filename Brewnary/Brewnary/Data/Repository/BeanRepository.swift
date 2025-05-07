@@ -20,7 +20,7 @@ final class BeanRepository: RepositoryType {
         self.coreDataRepository = CoreDataRepository(context: context)
     }
     
-    func updateBean(to bean: Bean, with flavor: [FlavorEntity]) async throws {
+    func update(to bean: Bean, with flavor: [FlavorEntity]) async throws {
         try await coreDataRepository.updateEntity(id: bean.id) { entity in
             BeanMapper.update(from: bean, to: entity, with: flavor)
         }
