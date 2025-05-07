@@ -41,7 +41,7 @@ final class BeanRepository {
     // TODO: with에 flavorEntity 넣어야 함
     func updateBean(to bean: Bean, with flavor: [FlavorEntity]) async throws {
         try await coreDataRepository.updateEntity(id: bean.id) { entity in
-            BeanMapper.map(from: bean, to: entity, with: flavor)
+            BeanMapper.update(from: bean, to: entity, with: flavor)
         }
     }
 }
