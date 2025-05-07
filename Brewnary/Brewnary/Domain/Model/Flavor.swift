@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Flavor: Identifiable, Equatable {
+struct Flavor: Identifiable, Equatable, ModelType {
     let id: UUID
     let name: String
 }

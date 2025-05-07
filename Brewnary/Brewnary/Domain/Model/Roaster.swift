@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Roaster: Identifiable, Equatable {
+struct Roaster: Identifiable, Equatable, ModelType {
     let id: UUID
     let name: String
 }
