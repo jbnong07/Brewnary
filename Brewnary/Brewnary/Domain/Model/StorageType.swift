@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StorageType: Identifiable, Equatable {
+struct StorageType: Identifiable, Equatable, ModelType {
     let id: UUID
     let method: String
 }

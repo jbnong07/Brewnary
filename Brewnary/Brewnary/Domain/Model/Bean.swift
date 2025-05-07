@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Bean: Identifiable, Equatable {
+struct Bean: Identifiable, Equatable, ModelType {
     let id: UUID
     let name: String
     let price: Int

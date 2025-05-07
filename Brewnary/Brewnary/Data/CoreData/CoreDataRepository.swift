@@ -14,6 +14,7 @@ final class CoreDataRepository<T: NSManagedObject> {
         self.context = context
     }
     
+    @discardableResult
     func createEntity() async throws -> T {
         try await context.perform {
             let entity: T = T(context: self.context)
@@ -27,7 +28,7 @@ final class CoreDataRepository<T: NSManagedObject> {
         }
     }
     
-    func fetchEntityById(_ id: String?) async throws -> T {
+    func fetchEntityById(_ id: UUID) async throws -> T {
         try await context.perform {
             do {
                 let entity: T = try Self.resolveEntity(id: id, in: self.context)
@@ -54,7 +55,7 @@ final class CoreDataRepository<T: NSManagedObject> {
         }
     }
     
-    func deleteEntityById(id: String?) async throws {
+    func deleteEntityById(_ id: UUID) async throws {
         try await context.perform {
             do {
                 let entity: NSManagedObject = try Self.resolveEntity(id: id, in: self.context)
@@ -66,7 +67,7 @@ final class CoreDataRepository<T: NSManagedObject> {
         }
     }
     
-    func updateEntity(id: String?, updateBlock: @escaping (T) -> Void) async throws {
+    func updateEntity(id: UUID, updateBlock: @escaping (T) -> Void) async throws {
         try await context.perform {
             do {
                 let entity: T = try Self.resolveEntity(id: id, in: self.context)
@@ -88,6 +89,7 @@ private extension CoreDataRepository {
         }
     }
     
+    @available(*, deprecated, message: "UUID 기반 resolveEntity(id:)로 대체되었습니다.")
     static func resolveEntity(id: String?, in context: NSManagedObjectContext) throws -> T {
         do {
             let objectId: NSManagedObjectID = try Self.toNSManagedObjectID(from: id, in: context)
@@ -98,6 +100,18 @@ private extension CoreDataRepository {
         } catch {
             throw error
         }
+    }
+    
+    static func resolveEntity(id: UUID, in context: NSManagedObjectContext) throws -> T {
+        let request = NSFetchRequest<T>(entityName: String(describing: T.self))
+        request.predicate = NSPredicate(format: "uuid == %@", id as CVarArg)
+        request.fetchLimit = 1
+        
+        guard let result = try context.fetch(request).first else {
+            throw CoreDataError.entityNotFound
+        }
+        
+        return result
     }
     
     static func toNSManagedObjectID(from id: String?, in context: NSManagedObjectContext) throws -> NSManagedObjectID {

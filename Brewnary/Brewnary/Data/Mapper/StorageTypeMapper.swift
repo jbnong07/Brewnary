@@ -5,8 +5,11 @@
 //  Created by 박진홍 on 4/30/25.
 //
 
-struct StorageTypeMapper {
-    static func map(from entity: StorageTypeEntity) throws -> StorageType {
+struct StorageTypeMapper: MapperType {
+    typealias Model = StorageType
+    typealias Entity = StorageTypeEntity
+    
+    static func map(from entity: Entity) throws -> Model {
         guard let id = entity.id
         else {
             throw MappingError.missingField("StroageType.id")
@@ -15,10 +18,10 @@ struct StorageTypeMapper {
         else {
             throw MappingError.missingField("StorageType.method")
         }
-        return StorageType(id: id, method: method)
+        return Model(id: id, method: method)
     }
     
-    static func update(from model: StorageType, to entity: StorageTypeEntity) {
+    static func update(from model: Model, to entity: Entity) {
         MapperHelper.assign(entity, \.id, model.id)
         MapperHelper.assign(entity, \.method, model.method)
     }

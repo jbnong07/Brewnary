@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RoastLevel: Identifiable, Equatable {
+struct RoastLevel: Identifiable, Equatable, ModelType {
     let id: UUID
     let level: String
 }
