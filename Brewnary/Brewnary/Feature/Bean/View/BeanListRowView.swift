@@ -43,7 +43,7 @@ struct BeanListRowView: View {
 #if DEBUG
 struct BeanListPreview: PreviewProvider {
     static var previews: some View {
-        BeanListRowView(name: "hello", roaster: "world", date: Date.now)
+        BeanListRowView(date: BeanListRowDto(id: UUID(), name: "hello", roaster: "world", date: Date.now))
     }
 }
 #endif
