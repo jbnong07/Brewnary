@@ -8,24 +8,16 @@
 import SwiftUI
 
 struct BeanListRowView: View {
-    private let name: String
-    private let roaster: String
-    private let date: Date
-    
-    init(name: String, roaster: String, date: Date) {
-        self.name = name
-        self.roaster = roaster
-        self.date = date
-    }
+    let beanData: BeanListRowDto
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(name)
+            Text(beanData.name)
                 .bold()
                 .font(.system(size: UIMetric.FontSize.subTitle))
-            Text(roaster)
+            Text(beanData.roaster)
                 .font(.system(size: UIMetric.FontSize.body))
-            Text(date.toIso8601Date())
+            Text(beanData.date.toIso8601Date())
                 .font(.system(size: UIMetric.FontSize.caption))
             
         }
@@ -33,17 +25,16 @@ struct BeanListRowView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical,UIMetric.Padding.regular)
         .background {
-            RoundedRectangle(cornerRadius: 15)
+            RoundedRectangle(cornerRadius: UIMetric.CornerRadius.regular)
                 .foregroundStyle(.gray)
         }
     }
-    
 }
 
 #if DEBUG
-struct BeanListPreview: PreviewProvider {
+struct BeanListRowPreview: PreviewProvider {
     static var previews: some View {
-        BeanListRowView(date: BeanListRowDto(id: UUID(), name: "hello", roaster: "world", date: Date.now))
+        BeanListRowView(beanData: BeanListRowDto(id: UUID(), name: "hello", roaster: "world", date: Date.now))
     }
 }
 #endif
