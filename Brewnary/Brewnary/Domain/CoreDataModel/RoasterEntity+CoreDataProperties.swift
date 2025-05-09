@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension RoasterEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<RoasterEntity> {

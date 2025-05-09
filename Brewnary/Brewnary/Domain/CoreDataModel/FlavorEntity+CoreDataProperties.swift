@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension FlavorEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<FlavorEntity> {

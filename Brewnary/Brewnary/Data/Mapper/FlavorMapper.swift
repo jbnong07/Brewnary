@@ -7,8 +7,11 @@
 
 import CoreData
 
-struct FlavorMapper {
-    static func map(from entity: FlavorEntity) throws -> Flavor {
+struct FlavorMapper: MapperType {
+    typealias Model = Flavor
+    typealias Entity = FlavorEntity
+    
+    static func map(from entity: Entity) throws -> Model {
         guard let name = entity.name
         else {
             throw MappingError.missingField("Flavor.name")
@@ -18,10 +21,10 @@ struct FlavorMapper {
         else {
             throw MappingError.missingField("Flavor.id")
         }
-        return Flavor(id: id, name: name)
+        return Model(id: id, name: name)
     }
     
-    static func update(from model: Flavor, to entity: FlavorEntity) {
+    static func update(from model: Model, to entity: Entity) {
         MapperHelper.assign(entity, \.id, model.id)
         MapperHelper.assign(entity, \.name, model.name)
     }
