@@ -113,7 +113,7 @@ private extension CoreDataRepository {
         
         return result
     }
-    
+
     static func toNSManagedObjectID(from id: String?, in context: NSManagedObjectContext) throws -> NSManagedObjectID {
         guard let id = id,
               let url = URL(string: id),
