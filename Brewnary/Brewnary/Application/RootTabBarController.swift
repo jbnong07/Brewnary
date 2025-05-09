@@ -16,7 +16,7 @@ final class RootTabBarController: UITabBarController {
     }
 
     private func setupTabs() {
-        let beanViewController: UIViewController = UIHostingController(rootView: BeanView())
+        let beanViewController: UIViewController = BeanViewController(viewModel: BeanViewModel(beanService: BeanService() ))
         beanViewController.tabBarItem = UITabBarItem(
             title: "Bean",
             image: UIImage(systemName: "house"),
