@@ -7,25 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		7A503AD32DCB902300B8B8DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AA1A8952DB73BDB00F47E08 /* Brewnary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brewnary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		7A2D578C2DAF365F0020C38F /* Exceptions for "Brewnary" folder in "Brewnary" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Application/Info.plist,
-			);
-			target = 7A2D57482DAD4A010020C38F /* Brewnary */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7A2D574B2DAD4A010020C38F /* Brewnary */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				7A2D578C2DAF365F0020C38F /* Exceptions for "Brewnary" folder in "Brewnary" target */,
-			);
 			path = Brewnary;
 			sourceTree = "<group>";
 		};
@@ -45,6 +33,7 @@
 		7A2D57402DAD4A010020C38F = {
 			isa = PBXGroup;
 			children = (
+				7A503AD32DCB902300B8B8DF /* Info.plist */,
 				7A2D574B2DAD4A010020C38F /* Brewnary */,
 				7AA1A8952DB73BDB00F47E08 /* Brewnary.app */,
 			);
