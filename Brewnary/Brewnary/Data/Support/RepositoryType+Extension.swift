@@ -8,8 +8,10 @@
 import Foundation
 
 extension RepositoryType {
-    func create() async throws -> Model {
+    @discardableResult
+    func create(with model: Model) async throws -> Model {
         let entity: Entity = try await coreDataRepository.createEntity()
+        Mapper.update(from: model, to: entity)
         return try Mapper.map(from: entity)
     }
     

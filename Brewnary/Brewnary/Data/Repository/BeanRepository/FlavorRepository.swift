@@ -12,12 +12,14 @@ final class FlavorRepository: RepositoryType {
     typealias EntityType = FlavorEntity
     typealias Mapper = FlavorMapper
     
-    let context: NSManagedObjectContext
     let coreDataRepository: CoreDataRepository<FlavorEntity>
     
-    init(context: NSManagedObjectContext) {
-        self.context = context
-        self.coreDataRepository = CoreDataRepository(context: context)
+    init(coreDataRepository: CoreDataRepository<FlavorEntity>) {
+        self.coreDataRepository = coreDataRepository
+    }
+    
+    func fetchEntity(by id: UUID) async throws -> Entity {
+        return try await coreDataRepository.fetchEntityById(id)
     }
 }
 

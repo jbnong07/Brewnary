@@ -12,13 +12,12 @@ protocol RepositoryType {
     associatedtype Entity: NSManagedObject
     associatedtype Mapper: MapperType where Mapper.Entity == Entity, Mapper.Model == Model
     
-    var context: NSManagedObjectContext { get }
     var coreDataRepository: CoreDataRepository<Entity> { get }
     
-    init(context: NSManagedObjectContext)
+    init(coreDataRepository: CoreDataRepository<Entity>)
     
     @discardableResult
-    func create() async throws -> Model
+    func create(with model: Model) async throws -> Model
     func fetchAll() async throws -> [Model]
     func fetchById(_ id: UUID) async throws -> Model
     func deleteById(_ id: UUID) async throws

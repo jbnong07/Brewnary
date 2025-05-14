@@ -20,7 +20,7 @@ struct BeanMapper: MapperType {
         }
         let flavorSet = (entity.flavor as? Set<FlavorEntity>) ?? []
         
-        return Model(
+        return try Model.create(
             id:             id,
             name:           name,
             price:          Int(entity.price),

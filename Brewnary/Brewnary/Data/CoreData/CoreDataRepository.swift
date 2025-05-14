@@ -28,6 +28,15 @@ final class CoreDataRepository<T: NSManagedObject> {
         }
     }
     
+    func createEntity(_ configure: @escaping (T) -> Void) async throws -> T {
+        try await context.perform {
+            let entity: T = T(context: self.context)
+            configure(entity)
+            try Self.saveIfNeeded(context: self.context)
+            return entity
+        }
+    }
+    
     func fetchEntityById(_ id: UUID) async throws -> T {
         try await context.perform {
             do {
