@@ -21,5 +21,15 @@ final class FlavorRepository: RepositoryType {
     func fetchEntity(by id: UUID) async throws -> Entity {
         return try await coreDataRepository.fetchEntityById(id)
     }
+    
+    func fetchEntities(by ids: [UUID]) async throws -> [Entity] {
+        var entites: [Entity] = []
+        
+        for id in ids {
+            try await entites.append(coreDataRepository.fetchEntityById(id))
+        }
+        
+        return entites
+    }
 }
 
