@@ -12,11 +12,9 @@ final class RoastLevelRepository: RepositoryType {
     typealias EntityType = RoastLevelEntity
     typealias Mapper = RoastLevelMapper
 
-    let context: NSManagedObjectContext
     let coreDataRepository: CoreDataRepository<EntityType>
     
-    init(context: NSManagedObjectContext) {
-        self.context = context
-        self.coreDataRepository = CoreDataRepository(context: context)
+    init(coreDataRepository: CoreDataRepository<EntityType>) {
+        self.coreDataRepository = coreDataRepository
     }
 }

@@ -12,12 +12,9 @@ final class StorageTypeRepository: RepositoryType {
     typealias EntityType = StorageTypeEntity
     typealias Mapper = StorageTypeMapper
 
-    let context: NSManagedObjectContext
     let coreDataRepository: CoreDataRepository<EntityType>
     
-    init(context: NSManagedObjectContext) {
-        self.context = context
-        self.coreDataRepository = CoreDataRepository(context: context)
+    init(coreDataRepository: CoreDataRepository<EntityType>) {
+        self.coreDataRepository = coreDataRepository
     }
-    
 }

@@ -1,13 +1,13 @@
 //
-//  BeanModel.swift
+//  BeanInput.swift
 //  Brewnary
 //
-//  Created by 박진홍 on 4/28/25.
+//  Created by 박진홍 on 5/13/25.
 //
 
 import Foundation
 
-struct Bean: Identifiable, Equatable, ModelType {
+struct BeanInput {
     let id: UUID
     let name: String
     let price: Int

@@ -1,33 +1,17 @@
 //
-//  RepositoryType.swift
+//  RepositoryType+Extension.swift
 //  Brewnary
 //
-//  Created by 박진홍 on 5/7/25.
+//  Created by 박진홍 on 5/9/25.
 //
 
-import CoreData
-
-protocol RepositoryType {
-    associatedtype Model: ModelType
-    associatedtype Entity: NSManagedObject
-    associatedtype Mapper: MapperType where Mapper.Entity == Entity, Mapper.Model == Model
-    
-    var context: NSManagedObjectContext { get }
-    var coreDataRepository: CoreDataRepository<Entity> { get }
-    
-    init(context: NSManagedObjectContext)
-    
-    @discardableResult
-    func create() async throws -> Model
-    func fetchAll() async throws -> [Model]
-    func fetchById(_ id: UUID) async throws -> Model
-    func deleteById(_ id: UUID) async throws
-    func update(from model: Model) async throws
-}
+import Foundation
 
 extension RepositoryType {
-    func create() async throws -> Model {
+    @discardableResult
+    func create(with model: Model) async throws -> Model {
         let entity: Entity = try await coreDataRepository.createEntity()
+        Mapper.update(from: model, to: entity)
         return try Mapper.map(from: entity)
     }
     
